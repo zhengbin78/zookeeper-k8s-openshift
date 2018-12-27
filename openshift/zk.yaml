@@ -82,6 +82,10 @@ parameters:
   description: The limits for CPU resource.
   value: "2"
   required: true
+- name: ZOO_ACCOUNT
+  description: zookeeper runas account
+  value: zk
+  required: true
 
 objects:
 - apiVersion: v1
@@ -120,6 +124,8 @@ objects:
           template: zk-persistent
           component: zk
       spec:
+        serviceAccount: ${ZOO_ACCOUNT}
+        serviceAccountName: ${ZOO_ACCOUNT}
         containers:
         - name: ${NAME}
           imagePullPolicy: IfNotPresent
